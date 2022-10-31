@@ -30,11 +30,18 @@ const loadVotes = async () => {
   const seats = calculateSeats(parties, votes, shareds24);
 
   console.log(JSON.stringify(seats, null, 2));
+
+  console.log(
+    'Likud + Shas + UTJ + RZ = ',
+    seats['מחל'] + seats['שס'] + seats['ג'] + seats['ט']
+  );
   
   await browser.close();
 };
 
 loadVotes();
+
+
 
 const shareds25 = [
   ['כן', 'פה'],

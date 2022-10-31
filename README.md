@@ -411,3 +411,26 @@ in the 24th elections, this actually cost Likud a seat to Meretz.
 now you're prepared to calculate seat outcomes from the votes totals on the government website live during the elections 11/1/22
 
 just change all the 24s to 25s!
+
+
+oh and one more thing
+
+let's calculate if whats-his-name has 61 seats
+
+<sub>./index.js</sub>
+```js
+
+  //...
+
+  const seats = calculateSeats(parties, votes, shareds24);
+
+  console.log(JSON.stringify(seats, null, 2));
+
+  console.log(
+    'Likud + Shas + UTJ + RZ = ',
+    seats['מחל'] + seats['שס'] + seats['ג'] + seats['ט']
+  );
+
+  //...
+
+```
