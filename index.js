@@ -70,7 +70,8 @@ const calculateSeats = (allParties, votes, sharedLists)=>{
     const sharedFollowIndex = sharedLists.findIndex(list => list.indexOf(p) > 0);
     if( sharedFollowIndex !== -1 ) return 0; // pretend the other ones get 0 for now
 
-    else return votes[ parties.indexOf(p) ]; // not shared, no change
+    // implicit else / default case
+    return votes[ parties.indexOf(p) ]; // not shared, no change
   });
 
   // map to (v / (s + 1))

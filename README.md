@@ -131,6 +131,10 @@ after getting the votes and the parties
 
 ```
 
+Israel uses [Thomas Jefferson's seat distribution method](https://en.wikipedia.org/wiki/D%27Hondt_method#Procedure)
+
+because apparently he also did some math... who knew?
+
 ```js
 
 const calculateSeats = (allParties, votes)=>{
@@ -333,9 +337,10 @@ const calculateSeats = (allParties, votes, sharedLists)=>{
       ), 0); // pretend the first party on the shared list gets all the votes
 
     const sharedFollowIndex = sharedLists.findIndex(list => list.indexOf(p) > 0);
-    if( sharedLeadIndex !== -1 ) return 0; // pretend the other ones get 0 for now
+    if( sharedFollowIndex !== -1 ) return 0; // pretend the other ones get 0 for now
 
-    else return votes[ parties.indexOf(p) ]; // not shared, no change
+    // implicit else / default case
+    return votes[ parties.indexOf(p) ]; // not shared, no change
   });
 
 ```
