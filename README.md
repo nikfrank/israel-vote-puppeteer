@@ -303,6 +303,24 @@ before we start distributing seats, we must first join shared votes
 
 <sub>./index.js</sub>
 ```js
+
+const shareds25 = [
+  ['כן', 'פה'],
+  ['שס', 'ג'],
+  ['מחל', 'ט'],
+  ['מרצ', 'אמת'],
+];
+
+const shareds24 = [
+  ['ב', 'ת'],
+  ['שס', 'ג'],
+  ['מחל', 'ט'],
+  ['מרצ', 'אמת'],
+];
+
+// vote sharing agreements for 24th and 25th elections
+
+
 const calculateSeats = (allParties, votes, sharedLists)=>{
 
   //...
