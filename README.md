@@ -4,6 +4,10 @@
 
 We want to know the number of seats that the votes numbers posted live on https://votes24.bechirot.gov.il/
 
+(during the election the mandates are not calculated on the website - only after - the next one should go up 10/31/22 at https://votes25.bechirot.gov.il/ )
+
+let's use puppeteer to scrape the vote totals from the existing site and calculate mandates on the fly!
+
 `cd ~/code`
 
 `mkdir vote-israel`
@@ -39,7 +43,7 @@ const loadVotes = async () => {
 loadVotes();
 ```
 
-your absolute Chrome path might be different though
+your absolute Chrome path might be different though - this is for mac
 
 
 `node .`
@@ -47,6 +51,9 @@ your absolute Chrome path might be different though
 should  print out 'done'
 
 then we can hit ctrl-c to end the process
+
+
+let's figure out the selector we'll use to scrape vote totals
 
 <sub>browser console in webpage</sub>
 ```js
@@ -83,6 +90,8 @@ document.querySelectorAll('table.TableData td.Last')
 `node .`
 
 it should print our vote totals to the terminal stdout
+
+we'll also want the vote slip abbreviation for each party
 
 
 ```js
@@ -122,7 +131,6 @@ after getting the votes and the parties
 
 ```
 
-<sub>./algorithm.js</sub>
 ```js
 
 const calculateSeats = (allParties, votes)=>{
@@ -143,7 +151,7 @@ now let's put our thoughts into code
 
 ```js
 
-const calculateSeats = (allParties, votes, sharedLists)=>{
+const calculateSeats = (allParties, votes)=>{
 
   // eliminate < 3.25%
   const totalVotes = votes.reduce((p, c)=> p+c, 0);
@@ -281,6 +289,9 @@ test('election24', ()=>{
 });
 ```
 
+(I did the testing in index.js D: - these notes are optimistic that you'll want to organize your code better than I did)
+
+
 aha! there's a problem
 
 we haven't calculated for surplus votes
@@ -292,6 +303,10 @@ before we start distributing seats, we must first join shared votes
 
 <sub>./index.js</sub>
 ```js
+const calculateSeats = (allParties, votes, sharedLists)=>{
+
+  //...
+
   const sharedTotals = parties.map(p=> {
     const sharedLeadIndex = sharedLists.findIndex(list => list.indexOf(p) === 0);
     if( sharedLeadIndex !== -1 )
