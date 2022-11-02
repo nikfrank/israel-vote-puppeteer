@@ -12,7 +12,7 @@ const loadVotes = async () => {
   });
   const page = await browser.newPage();
 
-  await page.goto('https://votes24.bechirot.gov.il/');
+  await page.goto('https://votes25.bechirot.gov.il/');
 
   const votes = await page.evaluate(() => {
     return [...document.querySelectorAll('table.TableData td.Last')]
@@ -27,7 +27,7 @@ const loadVotes = async () => {
   // Print all 
   // console.log(votes.map((v, i)=> `${v} - ${parties[i]}`).join('\n'));
 
-  const seats = calculateSeats(parties, votes, shareds24);
+  const seats = calculateSeats(parties, votes, shareds25);
 
   console.log(JSON.stringify(seats, null, 2));
 
@@ -58,7 +58,7 @@ const shareds24 = [
 ];
 
 
-const calculateSeats = (allParties, votes, sharedLists)=>{
+const calculateSeats = (allParties, votes, allSharedLists)=>{
 
   const totalVotes = votes.reduce((p, c)=> p+c, 0);
   
@@ -67,6 +67,8 @@ const calculateSeats = (allParties, votes, sharedLists)=>{
   // eliminate < 3.25%
   // calculate vote totals for sharing lists
 
+  const sharedLists = allSharedLists.filter(l=> l.every(p=> ~parties.indexOf(p)));
+  
   const sharedTotals = parties.map(p=> {
     const sharedLeadIndex = sharedLists.findIndex(list => list.indexOf(p) === 0);
     if( sharedLeadIndex !== -1 )
